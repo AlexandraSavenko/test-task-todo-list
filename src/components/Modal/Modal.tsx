@@ -1,12 +1,12 @@
 import { createPortal } from "react-dom";
 import css from "./Modal.module.css";
-import NoteForm from "../NoteForm/NoteForm";
 
 export interface ModalProps {
+  children: React.ReactNode;
   onClose: () => void;
 }
 
-const Modal = ({ onClose }: ModalProps) => {
+const Modal = ({children, onClose }: ModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -27,7 +27,7 @@ const Modal = ({ onClose }: ModalProps) => {
         >
           &times;
         </button>
-        <NoteForm onClose={onClose}/>
+        {children} 
       </div>
     </div>,
     document.body

@@ -2,7 +2,6 @@ import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import css from "./NoteForm.module.css";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ModalProps } from "../Modal/Modal";
 import { createTodo } from "../../services/todoService";
 import type { TodoFormValues } from "../../types/todo";
 
@@ -22,7 +21,8 @@ const NoteSchema = Yup.object().shape({
   completed: Yup.boolean()
 });
 
-const NoteForm = ({onClose}: ModalProps) => {
+
+const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: createTodo,
@@ -97,4 +97,4 @@ const NoteForm = ({onClose}: ModalProps) => {
   );
 };
 
-export default NoteForm;
+export default CreateTodoFrom;

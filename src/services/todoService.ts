@@ -1,5 +1,5 @@
 import api from "../api/api"
-import type { Todo, TodoFormValues } from "../types/todo";
+import type { EditTodoFormValues, Todo, TodoFormValues } from "../types/todo";
 
 interface FetchTodosParams {
     searchValue: string,
@@ -17,11 +17,16 @@ console.log(res.data)
 return res.data
 }
 
-export const createTodo = async (newNote: TodoFormValues) => {
-    const res = await api.post<CreateTodoResponce>('/your-todos', newNote);
+export const createTodo = async (newTodo: TodoFormValues) => {
+    const res = await api.post<CreateTodoResponce>('/your-todos', newTodo);
     return res.data
 }
 export const deleteTodo = async (todoId: number) => {
      const res = await api.delete(`/your-todos/${todoId}`);
+    return res.data
+}
+
+export const editTodo = async (updatedTodo: EditTodoFormValues) => {
+    const res = await api.put<CreateTodoResponce>(`/your-todos/${updatedTodo.id}`, updatedTodo);
     return res.data
 }

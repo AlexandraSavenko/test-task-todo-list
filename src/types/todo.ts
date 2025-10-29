@@ -12,6 +12,12 @@ export interface TodoFormValues {
     content: string;
     tag: string;
     completed: boolean;
-    
+}
 
+export interface EditTodoFormValues {
+  id?: number;
+  title: string;
+    content: string;
+    tag: string;
+    completed: boolean;
 }
