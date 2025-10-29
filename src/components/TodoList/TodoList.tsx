@@ -5,7 +5,7 @@ import { CiEdit } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { selectLoading } from "../../redux/todos/selectors";
-import { deleteTodo } from "../../redux/todos/operations";
+import { deleteTodo, editTodo } from "../../redux/todos/operations";
 interface TodoListProps {
   todos?: Todo[];
   openEditModal: (todo: Todo) => void;
@@ -16,20 +16,16 @@ const TodoList: React.FC<TodoListProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>()
   const loading = useSelector(selectLoading)
-  // const queryClient = useQueryClient();
-  // const mutationDel = useMutation({
-  //   mutationFn: deleteTodo,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["todos"] });
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
   const handleDelete = (todoId: number) => {
    dispatch(deleteTodo(todoId))
   };
-  
+  const handleToggle = (todo: Todo) => {
+const checkedAsDoneTodo = {
+  ...todo,
+  completed: !todo.completed
+}
+dispatch(editTodo(checkedAsDoneTodo))
+  }
   return (
     <>
       {loading && <Loader />}
@@ -39,6 +35,7 @@ const TodoList: React.FC<TodoListProps> = ({
             <li key={todo.id} className={css.listItem}>
               <div className={css.titleWrap}>
                 <span
+                onClick={() => handleToggle(todo)}
                   className={`${css.completed} ${
                     todo.completed ? css.isDone : css.notDone
                   }`}
