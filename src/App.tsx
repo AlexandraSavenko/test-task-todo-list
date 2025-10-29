@@ -12,11 +12,13 @@ const [searchQuery, setSearchQuery] = useState<string>("")
 const [searchValue] = useDebounce(searchQuery, 1000);
 const [isModalOpen, setIsModalOpen] = useState(false)
 const [page, setPage] = useState(1)
-
+const queryParams = {
+  searchValue,
+}
 // useEffect(()=> {console.log(searchValue)}, [searchQuery, searchValue])
   const {data, isFetching} = useQuery({
-    queryKey: ['todos'],
-    queryFn: fetchTodos,
+    queryKey: ['todos', searchValue],
+    queryFn: () => fetchTodos(queryParams),
     placeholderData: keepPreviousData
   })
 const notes = data ?? [] 
