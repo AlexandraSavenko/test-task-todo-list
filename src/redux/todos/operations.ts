@@ -23,7 +23,9 @@ export const fetchTodos = createAsyncThunk("todos/fetchTodos",  async ({
 }
 )
 export const createTodo = createAsyncThunk("todos/createTodos", async (newTodo: TodoFormValues) => {
+  console.log(newTodo)
   const res = await api.post<Todo>("/your-todos", newTodo);
+  console.log(res)
   return res.data;
 })
 export const deleteTodo = createAsyncThunk("todos/deleteTodos", async (todoId: number) => {

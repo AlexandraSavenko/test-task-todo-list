@@ -29,7 +29,7 @@ const todoSlice = createSlice({
       })
       .addCase(createTodo.fulfilled, (state, action) => {
         state.loading = false;
-        state.todos = [...state.todos, action.payload]
+        state.todos = [action.payload, ...state.todos]
         state.error = false;
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {

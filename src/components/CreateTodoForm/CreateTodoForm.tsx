@@ -25,14 +25,14 @@ const NoteSchema = Yup.object().shape({
 
 const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {
     const dispatch = useDispatch<AppDispatch>()
-    const handleSubmit = (
+    const handleSubmit = async (
   values: TodoFormValues,
   actions: FormikHelpers<TodoFormValues>
 ) => {
   const newTodo = {...values,
     completed: false
   };
-  const res = dispatch(createTodo(newTodo))
+  const res = await dispatch(createTodo(newTodo))
   if(createTodo.fulfilled.match(res)){
     actions.resetForm();
     onClose()
