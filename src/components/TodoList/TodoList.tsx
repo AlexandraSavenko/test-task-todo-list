@@ -12,7 +12,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, loading }) => {
   const mutation = useMutation({
     mutationFn: deleteTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onError: (error) => {
       console.log(error)
@@ -20,6 +20,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, loading }) => {
   });
 
   const handleDelete = (todoId: number) => {
+    console.log(todoId)
     mutation.mutate(todoId)
   }
   return (
