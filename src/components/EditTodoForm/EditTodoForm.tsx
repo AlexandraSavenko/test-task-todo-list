@@ -1,10 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { EditTodoFormValues } from "../../types/todo";
-import { editTodo } from "../../services/todoService";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import type { EditTodoFormValues, TodoFormValues } from "../../types/todo";
+import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
 import * as Yup from "yup";
 import css from "./EditTodoForm.module.css";
 import type { Todo } from "../../types/todo";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
+import { editTodo } from "../../redux/todos/operations";
 
 const NoteSchema = Yup.object().shape({
   title: Yup.string().required("Please give your note a title"),
@@ -18,24 +19,20 @@ interface EditTodoFormProps {
   todoToEdit: Todo;
 }
 const EditTodoForm = ({ onClose, todoToEdit }: EditTodoFormProps) => {
-  const QueryClient = useQueryClient();
+ const dispatch = useDispatch<AppDispatch>()
   const initialState = todoToEdit ? {... todoToEdit} :{
     title: "",
     content: "",
     tag: "Todo",
     completed: false,
   };
-  const mutation = useMutation({
-    mutationFn: editTodo,
-    onSuccess: () => QueryClient.invalidateQueries({ queryKey: ["todos"] }),
-  });
-
-  const handleSubmit = (values: EditTodoFormValues) => {
-    mutation.mutate(values, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+  
+  const handleSubmit = (values: EditTodoFormValues, actions:FormikHelpers<TodoFormValues>) => {
+    const res = dispatch(editTodo(values));
+    if(editTodo.fulfilled.match(res)){
+        actions.resetForm();
+        onClose()
+       }
   };
   return <Formik
     initialValues={initialState}

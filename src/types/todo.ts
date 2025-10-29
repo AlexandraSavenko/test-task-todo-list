@@ -1,23 +1,23 @@
 export interface Todo {
-  // userId: number;
   id: number;
   title: string;
   content: string;
-  completed: boolean;
   tag: string;
+  completed: boolean;
+  
 }
 
 export interface TodoFormValues {
-    title: string;
-    content: string;
-    tag: string;
-    completed: boolean;
+  title: string;
+  content: string;
+  tag: string;
+  completed: boolean;
 }
 
 export interface EditTodoFormValues {
   id?: number;
   title: string;
-    content: string;
-    tag: string;
-    completed: boolean;
+  content: string;
+  tag: string;
+  completed: boolean;
 }

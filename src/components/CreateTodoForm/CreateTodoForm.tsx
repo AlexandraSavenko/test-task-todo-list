@@ -1,9 +1,10 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import css from './CreateTodoForm.module.css'
 import * as Yup from "yup";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTodo } from "../../services/todoService";
 import type { TodoFormValues } from "../../types/todo";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
+import { createTodo } from "../../redux/todos/operations";
 
 
 const initialState = {
@@ -23,13 +24,7 @@ const NoteSchema = Yup.object().shape({
 
 
 const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {
-    const queryClient = useQueryClient()
-    const mutation = useMutation({
-        mutationFn: createTodo,
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['notes']})
-        }
-    })
+    const dispatch = useDispatch<AppDispatch>()
     const handleSubmit = (
   values: TodoFormValues,
   actions: FormikHelpers<TodoFormValues>
@@ -37,15 +32,11 @@ const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {
   const newTodo = {...values,
     completed: false
   };
-  mutation.mutate(newTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['todos']}); 
-      actions.resetForm();
-        onClose()
-       
-    }
-  })
-  
+  const res = dispatch(createTodo(newTodo))
+  if(createTodo.fulfilled.match(res)){
+    actions.resetForm();
+    onClose()
+   }
 };
   return (
     <Formik

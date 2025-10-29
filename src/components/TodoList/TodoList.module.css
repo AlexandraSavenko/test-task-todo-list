@@ -107,3 +107,10 @@
   .notDone{
     background-color: #bb2d3b;
   }
+
+  @media screen and (max-width: 375px) {
+    .list{
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+  }
