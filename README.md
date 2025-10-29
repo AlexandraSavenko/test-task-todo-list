@@ -1,67 +1,84 @@
-NoteHub 📝
+Todo App
 
-A simple notes application built with React, featuring search, pagination, and form validation.
-Developed in two days as a practice project.
+A simple React + Redux Todo Application with search, pagination, and full CRUD functionality, built for learning and demonstration purposes.
 
-🚀 Key Features:
+Features
 
-🔍 Search with Debounce — optimized input handling using use-debounce.
+Create Todos – Add new tasks with title, content, and tag.
 
-⚡ Data Fetching & Caching — powered by TanStack Query for server state management.
+Edit Todos – Modify existing tasks.
 
-🪟 Portals — clean and accessible modal implementation with React Portals.
+Delete Todos – Remove tasks from the list.
 
-✅ Form Handling & Validation — using Formik with Yup for schema validation.
+Toggle Completion – Mark tasks as completed or not completed.
 
-📄 Pagination — easy navigation through notes list with react-paginate.
+Search with Debounce – Search tasks efficiently without unnecessary re-renders.
 
-🗑️ CRUD Operations — create, read, update, and delete notes via backend API.
+Pagination – Navigate through tasks using React Paginate.
 
-🛠️ Tech Stack:
+State Management – Uses Redux Toolkit for global state and Redux Persist for persistence.
 
-React + TypeScript
+API Integration – Uses a custom MockAPI backend for storing todos.
 
-TanStack Query
+Responsive UI – Works on desktop and mobile screens.
 
-Formik + Yup
 
-Axios for API requests
+Tech Stack
 
-React Portals
+Frontend: React, TypeScript, Formik, CSS Modules
 
-React Paginate
+State Management: Redux Toolkit, Redux Persist
 
-CSS Modules
+API: Axios, MockAPI
 
-📂 Project Structure
-src/
- ├─ components/    # UI components (NoteList, Pagination, Modal, etc.)
- ├─ services/      # API requests (Axios)
- ├─ hooks/         # Custom hooks
- ├─ styles/        # CSS Modules
- └─ App.tsx        # Root component
+Utilities: useDebounce, React Paginate
 
-⚙️ Installation & Setup
+Installation
 
-Clone the repo:
+Clone the repository:
 
-git clone https://github.com/your-username/notehub.git
-cd notehub
+git clone https://github.com/AlexandraSavenko/test-task-todo-list
+cd test-task-todo-list
 
+create .env file and add backend url in it: https://6901c458b208b24affe39de0.mockapi.io/api/v1/
 
 Install dependencies:
 
 npm install
 
 
-Create a .env file and configure your API base URL:
+Start the development server:
 
-VITE_API_URL=https://notehub-public.goit.study/api
-VITE_API_TOKEN=your_token_here
+npm start
 
-⚠️ The token is provided when registering in Swagger. Without it, requests will fail.
-Get the token here: https://notehub-public.goit.study/api/docs
 
-Run the project:
+Open your browser at http://localhost:3000
 
-npm run dev
+Usage
+
+Type in the search bar to filter todos.
+
+Click the “Create todo +” button to add a new todo.
+
+Click on a todo’s edit button to modify it.
+
+Click the delete button to remove a todo.
+
+Click the sticker but the title to mark a todo as completed.
+
+Use the pagination at the bottom to navigate through pages of todos.
+
+Folder Structure (Optional)
+src/
+ ├─ components/    # Reusable UI components
+ ├─ redux/         # Redux slices, store, selectors
+ ├─ App.tsx
+ └─ main.tsx
+
+Notes
+
+The app uses MockAPI as a backend for demonstration. You can replace it with a real API by changing the api.ts service.
+
+Redux Persist ensures that todos remain in local storage across reloads.
+
+Pagination uses React Paginate with break points to handle small screens.

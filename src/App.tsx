@@ -49,7 +49,7 @@ function App() {
         <SearchBox onChange={setSearchQuery} />
 
         <button onClick={openCreateModal} className={css.button}>
-          Create note +
+          Create todo +
         </button>
       </header>
       <TodoList openEditModal={openEditModal} todos={notes}/>
