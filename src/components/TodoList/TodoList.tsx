@@ -31,6 +31,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, loading }) => {
           {todos.map((todo) => (
             <li key={todo.id} className={css.listItem}>
               <h2 className={css.title}>{todo.title}</h2>
+              <p>{todo.content}</p>
               <span className={todo.completed ? css.isDone : css.notDone}></span>
               <p>{todo.tag}</p>
               <div className={css.footer}>

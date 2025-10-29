@@ -2,13 +2,16 @@ export interface Todo {
   // userId: number;
   id: number;
   title: string;
+  content: string;
   completed: boolean;
   tag: string;
 }
 
 export interface TodoFormValues {
-  userId: number,
-    id: number,
-    title: string,
-    completed: boolean
+    title: string;
+    content: string;
+    tag: string;
+    completed: boolean;
+    
+
 }

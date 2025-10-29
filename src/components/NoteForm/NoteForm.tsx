@@ -2,39 +2,45 @@ import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import css from "./NoteForm.module.css";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { NoteFormValues } from "../../types/note";
-import { createNote } from "../../services/noteService";
 import type { ModalProps } from "../Modal/Modal";
+import { createTodo } from "../../services/todoService";
+import type { TodoFormValues } from "../../types/todo";
 
 
 const initialState = {
   title: "",
   content: "",
   tag: "Todo",
+  completed: false,
+  
 };
 
 const NoteSchema = Yup.object().shape({
   title: Yup.string().required("Please give your note a title"),
-  content: Yup.string().required("Please add some more details"),
   tag: Yup.string().required("Please, choose one of the tags"),
 });
 
 const NoteForm = ({onClose}: ModalProps) => {
     const queryClient = useQueryClient()
     const mutation = useMutation({
-        mutationFn: createNote,
+        mutationFn: createTodo,
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['notes']})
         }
     })
     const handleSubmit = (
-  values: NoteFormValues,
-  actions: FormikHelpers<NoteFormValues>
+  values: TodoFormValues,
+  actions: FormikHelpers<TodoFormValues>
 ) => {
-  mutation.mutate(values, {
+  const newTodo = {...values,
+    completed: false
+  };
+  mutation.mutate(newTodo, {
     onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['todos']}); 
+      actions.resetForm();
         onClose()
-     actions.resetForm();   
+       
     }
   })
   

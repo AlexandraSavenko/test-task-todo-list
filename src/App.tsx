@@ -30,7 +30,7 @@ const closeModal = () => setIsModalOpen(false)
     <button onClick={openModal} className={css.button}>Create note +</button>
   </header>
   <TodoList todos={notes} loading={isFetching}/>
-  {/* {isModalOpen && <Modal onClose={closeModal}/>} */}
+  {isModalOpen && <Modal onClose={closeModal}/>}
 </div>
   )
 }

@@ -12,7 +12,7 @@ return res.data
 }
 
 export const createTodo = async (newNote: TodoFormValues) => {
-    const res = await api.post<CreateTodoResponce>('/-your-todos', newNote);
+    const res = await api.post<CreateTodoResponce>('/your-todos', newNote);
     return res.data
 }
 export const deleteTodo = async (todoId: number) => {
