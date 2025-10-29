@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./TodoList.module.css";
 import Loader from "../Loader/Loader";
 import type { Todo } from "../../types/todo";
-import { deleteTodo, markAsDone } from "../../services/todoService";
+import { deleteTodo} from "../../services/todoService";
 import { CiEdit } from "react-icons/ci";
 interface TodoListProps {
   todos?: Todo[];
@@ -20,28 +20,12 @@ const TodoList: React.FC<TodoListProps> = ({ openEditModal, todos, loading }) =>
       console.log(error);
     },
   });
-const mutationDone = useMutation({
-    mutationFn: markAsDone,
-    onSuccess: (updatedTodo) => {
-      queryClient.setQueryData<Todo[]>(['todos'], old => old?.map(todo => todo.id === updatedTodo.id ? updatedTodo : todo));
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+
   const handleDelete = (todoId: number) => {
     mutationDel.mutate(todoId);
   };
 
-  const handleMarkAsDone = (todo: Todo) => {
-    const toggle = !todo.completed
-    const completedTask = {
-      ...todo,
-      completed: toggle
-    }
-    console.log(completedTask)
-mutationDone.mutate(completedTask);
-  }
+
   return (
     <>
       {loading && <Loader />}
@@ -49,12 +33,13 @@ mutationDone.mutate(completedTask);
         <ul className={css.list}>
           {todos.map((todo) => (
             <li key={todo.id} className={css.listItem}>
-              <h2 className={css.title}>{todo.title}</h2>
-              <p>{todo.content}</p>
-              <span onClick={() => handleMarkAsDone(todo)}
+              <div className={css.titleWrap}>
+                <span
                 className={`${css.completed} ${todo.completed ? css.isDone : css.notDone}`}
-              ></span>
-              
+              ></span> 
+              <h2 className={css.title}>{todo.title}</h2>
+              </div>
+              <p>{todo.content}</p>
               <button className={css.editBtn} onClick={() => openEditModal(todo)}>
                 <CiEdit />
               </button>

@@ -12,11 +12,12 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, setPage }) => {
   return (
       <ReactPaginate
         breakLabel="..."
-        nextLabel="next >"
+        nextLabel=">"
+        previousLabel="<"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={totalPages}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
         pageCount={totalPages}
-        previousLabel="< previous"
         renderOnZeroPageCount={null}
         className={css.pagination}
         activeClassName={css.active}

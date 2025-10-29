@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import css from "./App.module.css"
 import { useState } from "react"
-// import Pagination from "./components/Pagination/Pagination"
+import Pagination from "./components/Pagination/Pagination"
 import Modal from "./components/Modal/Modal"
 import SearchBox from "./components/SearchBox/SearchBox"
 import { useDebounce } from 'use-debounce';
@@ -15,21 +15,23 @@ const [searchQuery, setSearchQuery] = useState<string>("")
 const [searchValue] = useDebounce(searchQuery, 1000);
 const [isModalOpen, setIsModalOpen] = useState<"" | "createTodo" | "editTodo">("")
 const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
-// const [page, setPage] = useState(1)
+const [page, setPage] = useState(1)
 const queryParams = {
   searchValue,
+  page
 }
-// useEffect(()=> {console.log(searchValue)}, [searchQuery, searchValue])
   const {data, isFetching} = useQuery({
-    queryKey: ['todos', searchValue],
+    queryKey: ['todos', searchValue, page],
     queryFn: () => fetchTodos(queryParams),
     placeholderData: keepPreviousData
   })
-const notes = data ?? [] 
+
+  const totalPages = data?.totalCount ? Math.ceil(data.totalCount / 8) : 1
+
+const notes = data?.todos ?? [] 
 const openCreateModal = () => {
   setEditingTodo(null);
   setIsModalOpen("createTodo");
-  console.log(isModalOpen)
   }
   const openEditModal = (todo: Todo) => {
     setEditingTodo(todo)
@@ -40,10 +42,11 @@ const closeModal = () => setIsModalOpen("")
     <div className={css.app}>
 	<header className={css.toolbar}>
 		<SearchBox onChange={setSearchQuery}/>
-    {/* <Pagination totalPages={2} setPage={setPage}/> */}
+    
     <button onClick={openCreateModal} className={css.button}>Create note +</button>
   </header>
   <TodoList openEditModal={openEditModal} todos={notes} loading={isFetching}/>
+  <Pagination totalPages={totalPages} setPage={setPage}/>
   {isModalOpen && <Modal onClose={closeModal}>
     {isModalOpen === "createTodo" && <CreateTodoFrom onClose={closeModal}/>}
     {isModalOpen === "editTodo" && editingTodo && (
