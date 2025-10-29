@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+:root {
+	--main: #101828;
+	--gray: #8d929a;
+	--gray-light: #dadde1;
+	--badges: #f2f4f7;
+	--inputs: #f7f7f7;
+	--white: #fff;
+	--button: #3470ff;
+	--button-hover: #0b44cd;
+   --font-family: "Manrope", sans-serif;
+  --second-family: "Inter", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+border: none;
+background: none;
+cursor: pointer;
+}
+
+.container{
+  width: 100%;
+  padding: 0 120px;
+}
