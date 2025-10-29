@@ -19,7 +19,7 @@ interface EditTodoFormProps {
 }
 const EditTodoForm = ({ onClose, todoToEdit }: EditTodoFormProps) => {
   const QueryClient = useQueryClient();
-  const initialState = todoToEdit ?? {
+  const initialState = todoToEdit ? {... todoToEdit} :{
     title: "",
     content: "",
     tag: "Todo",

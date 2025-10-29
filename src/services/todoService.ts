@@ -8,6 +8,7 @@ interface CreateTodoResponce {
     todo: Todo
 }
 
+
 export const fetchTodos = async ({searchValue}: FetchTodosParams): Promise<Todo[]> => {
     const searchParams: Record<string, string> = {}
     if(searchValue) searchParams.search = searchValue
@@ -28,5 +29,10 @@ export const deleteTodo = async (todoId: number) => {
 
 export const editTodo = async (updatedTodo: EditTodoFormValues) => {
     const res = await api.put<CreateTodoResponce>(`/your-todos/${updatedTodo.id}`, updatedTodo);
+    return res.data
+}
+
+export const markAsDone = async (todo: Todo) => {
+    const res = await api.put(`/your-todos/${todo.id}`, {todo});
     return res.data
 }

@@ -29,3 +29,11 @@
   .button:hover {
     background-color: #0b5ed7;
   }
+
+  @media screen and (max-width: 430px) {
+    .toolbar{
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+  }
