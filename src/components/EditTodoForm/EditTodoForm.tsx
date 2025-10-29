@@ -27,8 +27,8 @@ const EditTodoForm = ({ onClose, todoToEdit }: EditTodoFormProps) => {
     completed: false,
   };
   
-  const handleSubmit = (values: EditTodoFormValues, actions:FormikHelpers<TodoFormValues>) => {
-    const res = dispatch(editTodo(values));
+  const handleSubmit = async (values: EditTodoFormValues, actions:FormikHelpers<TodoFormValues>) => {
+    const res = await dispatch(editTodo(values));
     if(editTodo.fulfilled.match(res)){
         actions.resetForm();
         onClose()
