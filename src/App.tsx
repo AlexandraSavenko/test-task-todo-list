@@ -45,7 +45,7 @@ const closeModal = () => setIsModalOpen("")
   </header>
   <TodoList openEditModal={openEditModal} todos={notes} loading={isFetching}/>
   {isModalOpen && <Modal onClose={closeModal}>
-    {/* {isModalOpen === "createTodo" && <CreateTodoFrom onClose={closeModal}/>} */}
+    {isModalOpen === "createTodo" && <CreateTodoFrom onClose={closeModal}/>}
     {isModalOpen === "editTodo" && editingTodo && (
       <EditTodoForm todoToEdit={editingTodo} onClose={closeModal}/>
     )}

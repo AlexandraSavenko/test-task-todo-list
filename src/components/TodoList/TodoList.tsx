@@ -37,8 +37,8 @@ const TodoList: React.FC<TodoListProps> = ({ openEditModal, todos, loading }) =>
               <span
                 className={todo.completed ? css.isDone : css.notDone}
               ></span>
-              <p>{todo.tag}</p>
-              <button onClick={() => openEditModal(todo)}>
+              
+              <button className={css.editBtn} onClick={() => openEditModal(todo)}>
                 <CiEdit />
               </button>
               <div className={css.footer}>
@@ -51,6 +51,7 @@ const TodoList: React.FC<TodoListProps> = ({ openEditModal, todos, loading }) =>
                 >
                   Delete
                 </button>
+                <p className={css.tag}>{todo.tag}</p>
               </div>
             </li>
           ))}

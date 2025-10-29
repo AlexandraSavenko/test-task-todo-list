@@ -72,9 +72,9 @@ const EditTodoForm = ({ onClose, todoToEdit }: EditTodoFormProps) => {
         </Field>
         <ErrorMessage component="span" name="tag" className={css.error} />
       </div>
-      <div>
-        <label>Completed:</label>
-        <Field as="checkbox" name="completed" />
+      <div className={css.checkBoxGroup}>
+        <label htmlFor="completed">Completed:</label>
+        <Field className={css.checkBox} type="checkbox" name="completed" />
       </div>
       <div className={css.actions}>
         <button type="button" className={css.cancelButton}>

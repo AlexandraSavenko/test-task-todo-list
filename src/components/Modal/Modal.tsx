@@ -27,7 +27,7 @@ const Modal = ({children, onClose }: ModalProps) => {
         >
           &times;
         </button>
-        {children} 
+        {children? children : "Sorry, something went wrong. Please, try again"} 
       </div>
     </div>,
     document.body
