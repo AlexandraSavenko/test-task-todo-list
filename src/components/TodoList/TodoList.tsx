@@ -16,6 +16,7 @@ const TodoList: React.FC<TodoListProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>()
   const loading = useSelector(selectLoading)
+  
   const handleDelete = (todoId: number) => {
    dispatch(deleteTodo(todoId))
   };
@@ -26,6 +27,8 @@ const checkedAsDoneTodo = {
 }
 dispatch(editTodo(checkedAsDoneTodo))
   }
+
+  if(todos?.length === 0) return <p>Sorry, you don't have any such todos yet.</p>
   return (
     <>
       {loading && <Loader />}
