@@ -14,6 +14,8 @@ Toggle Completion – Mark tasks as completed or not completed.
 
 Search with Debounce – Search tasks efficiently without unnecessary re-renders.
 
+Filter Todos – Allows you to view only completed or incomplete tasks.
+
 Pagination – Navigate through tasks using React Paginate.
 
 State Management – Uses Redux Toolkit for global state and Redux Persist for persistence.
@@ -31,7 +33,7 @@ State Management: Redux Toolkit, Redux Persist
 
 API: Axios, MockAPI
 
-Utilities: useDebounce, React Paginate
+Utilities: useDebounce, React Paginate, React Spinners, React Icons
 
 Installation
 
