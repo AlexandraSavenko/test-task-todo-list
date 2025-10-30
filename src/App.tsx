@@ -10,15 +10,14 @@ import type { Todo } from "./types/todo";
 import CreateTodoFrom from "./components/CreateTodoForm/CreateTodoForm";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "./redux/store";
-import {
-  selectTodos,
-  selectTotalPages,
-} from "./redux/todos/selectors";
+import { selectTodos, selectTotalPages } from "./redux/todos/selectors";
 import { fetchTodos } from "./redux/todos/operations";
+import FilterTodos from "./components/FilterTodos/FilterTodos";
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchValue] = useDebounce(searchQuery, 1000);
+  const [filterValue, setFilterValue] = useState<string>("all");
   const [isModalOpen, setIsModalOpen] = useState<
     "" | "createTodo" | "editTodo"
   >("");
@@ -29,9 +28,8 @@ function App() {
   const totalPages = useSelector(selectTotalPages);
 
   useEffect(() => {
-  dispatch(fetchTodos({searchValue, page}));
-  }, [dispatch, searchValue, page]);
-
+    dispatch(fetchTodos({ searchValue, page, filterValue }));
+  }, [dispatch, searchValue, page, filterValue]);
 
   const notes = todos ?? [];
   const openCreateModal = () => {
@@ -47,12 +45,12 @@ function App() {
     <div className={css.app}>
       <header className={css.toolbar}>
         <SearchBox onChange={setSearchQuery} />
-
+        <FilterTodos onChange={setFilterValue} />
         <button onClick={openCreateModal} className={css.button}>
           Create todo +
         </button>
       </header>
-      <TodoList openEditModal={openEditModal} todos={notes}/>
+      <TodoList openEditModal={openEditModal} todos={notes} />
       <Pagination totalPages={totalPages} setPage={setPage} />
       {isModalOpen && (
         <Modal onClose={closeModal}>

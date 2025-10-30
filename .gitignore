@@ -31,7 +31,3 @@ dist-ssr
 .DS_Store
 Thumb.debug
 
-#Docker
-*.pid
-*.log
-docker-compose.override.yml

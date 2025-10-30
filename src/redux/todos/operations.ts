@@ -6,15 +6,18 @@ import type { EditTodoFormValues, Todo, TodoFormValues } from "../../types/todo"
 interface FetchTodosParams {
   searchValue: string;
   page: number;
+  filterValue: string;
 }
 
 export const fetchTodos = createAsyncThunk("todos/fetchTodos",  async ({
-  searchValue,
-  page,
+  searchValue ="",
+  page = 1,
+  filterValue = "all",
 }: FetchTodosParams) => {
   const searchParams: Record<string, string> = {};
   if (searchValue) searchParams.search = searchValue;
   if (page) searchParams.page = page.toString();
+  if(filterValue !== "all") searchParams.completed = filterValue;
   searchParams.limit = "8";
   const query = new URLSearchParams(searchParams);
   const res = await api.get<Todo[]>(`/your-todos?${query}`);

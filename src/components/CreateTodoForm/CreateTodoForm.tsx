@@ -76,7 +76,7 @@ const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {
         </div>
 
         <div className={css.actions}>
-          <button type="button" className={css.cancelButton}>
+          <button onClick={() => onClose()} type="button" className={css.cancelButton}>
             Cancel
           </button>
           <button type="submit" className={css.submitButton}>
