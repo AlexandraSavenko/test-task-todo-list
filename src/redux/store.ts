@@ -10,7 +10,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import todosReducer from "./todos/slice"
+import todosReducer from "./todos/slice";
+import modalReducer from "./modal/slice";
 // import favoritesSlice from "./recipes/favoritesSlice";
 
 const persistTodosConfig = {
@@ -23,6 +24,7 @@ const persistedTodosReducer = persistReducer(persistTodosConfig, todosReducer);
 export const store = configureStore({
   reducer: {
     todos: persistedTodosReducer,
+    modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

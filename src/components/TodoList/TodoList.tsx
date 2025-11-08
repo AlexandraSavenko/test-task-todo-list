@@ -10,25 +10,23 @@ interface TodoListProps {
   todos?: Todo[];
   openEditModal: (todo: Todo) => void;
 }
-const TodoList: React.FC<TodoListProps> = ({
-  openEditModal,
-  todos,
-}) => {
-  const dispatch = useDispatch<AppDispatch>()
-  const loading = useSelector(selectLoading)
-  
+const TodoList: React.FC<TodoListProps> = ({ openEditModal, todos }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const loading = useSelector(selectLoading);
+
   const handleDelete = (todoId: number) => {
-   dispatch(deleteTodo(todoId))
+    dispatch(deleteTodo(todoId));
   };
   const handleToggle = (todo: Todo) => {
-const checkedAsDoneTodo = {
-  ...todo,
-  completed: !todo.completed
-}
-dispatch(editTodo(checkedAsDoneTodo))
-  }
+    const checkedAsDoneTodo = {
+      ...todo,
+      completed: !todo.completed,
+    };
+    dispatch(editTodo(checkedAsDoneTodo));
+  };
 
-  if(todos?.length === 0) return <p>Sorry, you don't have any such todos yet.</p>
+  if (todos?.length === 0)
+    return <p>Sorry, you don't have any such todos yet.</p>;
   return (
     <>
       {loading && <Loader />}
@@ -38,7 +36,7 @@ dispatch(editTodo(checkedAsDoneTodo))
             <li key={todo.id} className={css.listItem}>
               <div className={css.titleWrap}>
                 <span
-                onClick={() => handleToggle(todo)}
+                  onClick={() => handleToggle(todo)}
                   className={`${css.completed} ${
                     todo.completed ? css.isDone : css.notDone
                   }`}

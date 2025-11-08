@@ -1,10 +1,10 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import css from './CreateTodoForm.module.css'
-import * as Yup from "yup";
 import type { TodoFormValues } from "../../types/todo";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { createTodo } from "../../redux/todos/operations";
+import { NoteSchema } from "../../schemas/schema";
 
 
 const initialState = {
@@ -15,12 +15,7 @@ const initialState = {
   
 };
 
-const NoteSchema = Yup.object().shape({
-  title: Yup.string().required("Please give your note a title"),
-  content: Yup.string().required("Please give some details"),
-  tag: Yup.string().required("Please, choose one of the tags"),
-  completed: Yup.boolean()
-});
+
 
 
 const CreateTodoFrom = ({onClose}: {onClose: () => void}) => {

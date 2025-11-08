@@ -4,12 +4,16 @@ import type { Todo } from "../../types/todo";
 
 interface todosInitialState {
   todos: Todo[];
+  searchValue: string;
+  filters: string;
   totalPage: number;
   loading: boolean;
   error: boolean;
 }
 const InitialState: todosInitialState = {
   todos: [],
+   searchValue: "",
+  filters: "all",
   totalPage: 1,
   loading: false,
   error: false,
@@ -17,7 +21,14 @@ const InitialState: todosInitialState = {
 const todoSlice = createSlice({
   name: "todos",
   initialState: InitialState,
-  reducers: {},
+  reducers: {
+    setSearchValue(state, action){
+state.searchValue = action.payload
+    },
+    setFilterValue(state, action){
+      state.filters = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.pending, (state) => {
@@ -84,6 +95,6 @@ const todoSlice = createSlice({
 
 export default todoSlice.reducer;
 
-// export const {
-
-// } = todoSlice.actions;
+export const {
+setSearchValue, setFilterValue
+} = todoSlice.actions;

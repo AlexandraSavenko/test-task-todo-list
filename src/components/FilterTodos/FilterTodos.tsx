@@ -1,11 +1,14 @@
-import type { Dispatch, SetStateAction } from "react";
+// import type { Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
 import css from "./FilterTodos.module.css"
+import { setFilterValue } from "../../redux/todos/slice";
 
-interface FilterTodosProps {
-  onChange: Dispatch<SetStateAction<string>>;
-}
+// interface FilterTodosProps {
+//   onChange: Dispatch<SetStateAction<string>>;
+// }
 
-const FilterTodos: React.FC<FilterTodosProps> = ({ onChange }) => {
+const FilterTodos= () => {
+  const dispatch = useDispatch()
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filterValue = e.target.value;
     const filterTodos =
@@ -14,7 +17,7 @@ const FilterTodos: React.FC<FilterTodosProps> = ({ onChange }) => {
         : filterValue === "notDone"
         ? "false"
         : "all";
-    onChange(filterTodos);
+    dispatch(setFilterValue(filterTodos));
   };
   return (
     <div>
